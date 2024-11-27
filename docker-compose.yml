@@ -1,0 +1,47 @@
+services:
+  alix-pwa:
+    build:
+      context: ./alix-pwa
+    ports:
+      - "3000:80"
+    networks:
+      - app_network
+
+  alix-appweb:
+    build:
+      context: ./alix-appweb
+    ports:
+      - "3001:80"
+    networks:
+      - app_network
+
+  alix-api:
+    build:
+      context: ./alix-api
+    ports:
+      - "3002:3000"
+    networks:
+      - app_network
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: alix
+      POSTGRES_DB: Alix
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+
+networks:
+  app_network:
+    driver: bridge
