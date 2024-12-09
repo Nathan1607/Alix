@@ -31,17 +31,17 @@ Le projet est composé de plusieurs services interconnectés via Docker Compose.
 - **Port** : 5432 (accessible via localhost:5432).
 - **Configuration** :
 - Utilisateur : `admin`
-- Mot de passe : `alix`
-- Base de données : `Alix`
+- Mot de passe : `...`
+- Base de données : `...`
 - **Volumes** : Utilise un volume Docker persistant pour stocker les données (`postgres_data`).
 
 ### 5. **pgadmin**
 
 - **Rôle** : Interface graphique pour administrer la base de données PostgreSQL.
 - **Port** : 8080 (accessible via http://localhost:8080).
-- **Utilisateur par défaut** :
+- **Utilisateur par défaut** : admin
 - Email : `gaulardnathan@gmail.com`
-- Mot de passe : `Alix`
+- Mot de passe : `...`
 - **Dépendances** : Ce service dépend de la base de données PostgreSQL.
 
 ### Réseau
@@ -68,11 +68,3 @@ L’outil Docker Compose est utilisé pour orchestrer ces services. En exécutan
 
 - **Objectif** : La branche de production où seules les versions stables et validées du projet sont présentes. Cette branche contient le code prêt à être déployé sur l'environnement de production.
 - **Usage** : Une fois que les tests en staging sont concluants, le code est fusionné dans `prod` et déployé sur l'environnement de production.
-
-## Déploiement et Utilisation
-
-### Prérequis
-
-- Docker et Docker Compose doivent être installés sur votre machine.
-- Assurez-vous que les ports nécessaires (3000, 3001, 3002, 5432, 8080) sont disponibles sur votre machine.
-
