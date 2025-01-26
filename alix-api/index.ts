@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import { AppDataSource } from "./src/class/data-source"; 
+import userRouter from "./src/routes/user.routes";
 
 const app = express();
 const PORT = 3000;
@@ -12,6 +13,8 @@ app.use(cors());
 app.get("/", (req, res) => {
     res.send("API is running !");
 });
+
+app.use("/users", userRouter);
 
 const startServer = async () => {
     try {
