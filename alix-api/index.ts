@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { AppDataSource } from "./src/class/data-source"; 
 import userRouter from "./src/routes/user.routes";
+import { setupSwagger } from "./src/config/swagger";
 
 const app = express();
 const PORT = 3000;
@@ -15,6 +16,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", userRouter);
+
+setupSwagger(app);
 
 const startServer = async () => {
     try {
