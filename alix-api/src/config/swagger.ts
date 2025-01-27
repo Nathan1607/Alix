@@ -13,14 +13,13 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:3000", // URL de votre serveur
+        url: "http://localhost:3000",
       },
     ],
   },
-  apis: ["./src/routes/*.ts"], // Les fichiers où Swagger cherche les annotations
+  apis: ["./src/routes/*.ts"],
 };
 
-// Générer la documentation Swagger
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 export const setupSwagger = (app: Express) => {

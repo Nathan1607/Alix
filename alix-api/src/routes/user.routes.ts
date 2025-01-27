@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { AppDataSource } from "../class/data-source";
 import { User } from "../class/User";
+import { authenticateJWT } from "../Middleware/authMiddleware";
 
 const userRouter = Router();
 const userRepository = AppDataSource.getRepository(User);
@@ -22,7 +23,7 @@ const userRepository = AppDataSource.getRepository(User);
  *               items:
  *                 type: object
  */
-userRouter.get("/", async (req, res) => {
+userRouter.get("/", authenticateJWT, async (req, res) => {
   try {
     const users = await userRepository.find();
     res.json(users);
@@ -55,7 +56,7 @@ userRouter.get("/", async (req, res) => {
  *       500:
  *         description: Erreur lors de la création
  */
-userRouter.post("/", async (req: Request, res: Response) => {
+userRouter.post("/", authenticateJWT, async (req: Request, res: Response) => {
   try {
     const user = userRepository.create(req.body);
     const savedUser = await userRepository.save(user);
