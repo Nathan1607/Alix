@@ -9,13 +9,23 @@ const swaggerOptions = {
     info: {
       title: "API Documentation",
       version: "1.0.0",
-      description: "Documentation de l'API pour votre application",
+      description: "Documentation de l'API Alix",
     },
     servers: [
       {
         url: "http://localhost:3000",
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        }
+      }
+    },
+    security: [{ bearerAuth: [] }],
   },
   apis: ["./src/routes/*.ts"],
 };
