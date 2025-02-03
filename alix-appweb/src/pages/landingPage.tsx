@@ -1,8 +1,11 @@
+import HeaderLandingPage from "../components/headerLandingPage"
+
 export default function LandingPage() {
 
   return (
     <>
-      <h1>LandingPage</h1>
+      <HeaderLandingPage />
+      <p>Contenu de ma Landing Page</p>
     </>
   )
 }

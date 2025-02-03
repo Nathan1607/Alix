@@ -1,0 +1,34 @@
+header {
+    background-color: white;
+    margin: auto;
+}
+
+a {
+    color: #494949;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.test {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    width: 100%;
+}
+
+li{
+    margin: 0 1rem;
+}
+
+.logoAlix {
+    width: 40vh;
+    height: 15vh;
+}
