@@ -13,7 +13,6 @@ a {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 1rem 0;
 }
 
 ul {
@@ -30,5 +29,6 @@ li{
 
 .logoAlix {
     width: 40vh;
-    height: 15vh;
+    height: 12vh;
+    padding-bottom: 0.5rem;
 }

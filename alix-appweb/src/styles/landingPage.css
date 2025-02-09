@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.firstPart {
+    background-image: url('../assets/img-landingPage.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligne le contenu à gauche */
+    justify-content: center; /* Centre verticalement */
+    padding-left: 10%; /* Décale légèrement le texte depuis le bord gauche */
+    text-align: left; /* Alignement du texte */
+    color: white;
+}

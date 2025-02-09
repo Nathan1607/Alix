@@ -6,8 +6,8 @@ export default function headerLandingPage() {
     <>
       <header>
         <div className="test">
-        <img className="logoAlix" src={logoAlix} alt="Logo Alix" />
-        <nav>
+          <img className="logoAlix" src={logoAlix} alt="Logo Alix" />
+          <nav>
             <ul>
               <li>
                 <a href="#accueil">Accueil</a>
