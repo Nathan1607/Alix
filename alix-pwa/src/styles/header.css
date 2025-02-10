@@ -55,3 +55,33 @@
   font-size: 1.3rem;
   padding-right: 2rem;
 }
+
+
+/* Media queries pour l'adaptation aux tablettes */
+@media (max-width: 1024px) {
+  .status-header {
+    height: 2.5rem;
+    padding: 0 0.8rem;
+  }
+  .status-item {
+    font-size: 1.5rem;
+  }
+  .status-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .status-header {
+    height: 2rem;
+    padding: 0 0.5rem;
+  }
+  .status-item {
+    font-size: 1.2rem;
+  }
+  .status-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}

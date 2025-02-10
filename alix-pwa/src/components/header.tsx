@@ -102,10 +102,10 @@ const Header = () => {
 
   const getBatteryIcon = () => {
     if (batteryLevel !== null) {
-      if (batteryLevel > 80) return <BatteryFullIcon className="status-icon" />;
-      if (batteryLevel > 50 && batteryLevel <= 70)
+      if (batteryLevel >= 80) return <BatteryFullIcon className="status-icon" />;
+      if (batteryLevel >= 30 && batteryLevel < 80)
         return <BatteryMediumIcon className="status-icon" />;
-      if (batteryLevel < 20) return <BatteryLowIcon className="status-icon" />;
+      if (batteryLevel < 30) return <BatteryLowIcon className="status-icon" />;
     }
     return <BatteryIcon className="status-icon" />;
   };
