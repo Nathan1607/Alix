@@ -1,5 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { WifiIcon, BatteryChargingIcon, ThermometerIcon, ClockIcon, BatteryIcon, BatteryFull, Battery } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  WifiIcon,
+  BatteryIcon,
+  WifiOffIcon,
+  BatteryFullIcon,
+  BatteryLowIcon,
+  BatteryMediumIcon,
+  SunIcon,
+  CloudIcon,
+  CloudRainIcon,
+  WindIcon,
+} from "lucide-react";
+import "../styles/header.css";
 
 declare global {
   interface Navigator {
@@ -16,10 +28,9 @@ const Header = () => {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
   const [dateTime, setDateTime] = useState<string>("");
   const [temperature, setTemperature] = useState<number | null>(null);
-  const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
-    null
-  );
+  const [location, setLocation] = useState<{ lat: number; lon: number } | null>(null);
   const [wifiStatus, setWifiStatus] = useState<boolean | null>(null);
+  const [weatherCode, setWeatherCode] = useState<number | null>(null);
 
   useEffect(() => {
     // Récupération du niveau de batterie
@@ -45,7 +56,6 @@ const Header = () => {
             weekday: "long",
             day: "numeric",
             month: "long",
-            year: "numeric",
           })
       );
     }, 1000);
@@ -67,52 +77,71 @@ const Header = () => {
 
   useEffect(() => {
     if (location) {
-      // Récupération de la température via une API météo avec localisation
       fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${location.lat}&longitude=${location.lon}&current_weather=true`
       )
         .then((res) => res.json())
-        .then((data) => setTemperature(data.current_weather.temperature))
+        .then((data) => {
+          setTemperature(data.current_weather.temperature);
+          setWeatherCode(data.current_weather.weathercode);
+        })
         .catch(console.error);
     }
   }, [location]);
 
   useEffect(() => {
-    // Vérification du statut du WiFi
-    const checkWifi = () => {
-      if (navigator.onLine) {
-        setWifiStatus(true);
-      } else {
-        setWifiStatus(false);
-      }
-    };
-
+    const checkWifi = () => setWifiStatus(navigator.onLine);
     checkWifi();
     window.addEventListener("online", checkWifi);
     window.addEventListener("offline", checkWifi);
-
     return () => {
       window.removeEventListener("online", checkWifi);
       window.removeEventListener("offline", checkWifi);
     };
   }, []);
 
+  const getBatteryIcon = () => {
+    if (batteryLevel !== null) {
+      if (batteryLevel > 80) return <BatteryFullIcon className="status-icon" />;
+      if (batteryLevel > 50 && batteryLevel <= 70)
+        return <BatteryMediumIcon className="status-icon" />;
+      if (batteryLevel < 20) return <BatteryLowIcon className="status-icon" />;
+    }
+    return <BatteryIcon className="status-icon" />;
+  };
+
+  const getWeatherIcon = () => {
+    if (weatherCode === null) return null;
+    if (weatherCode < 3) return <SunIcon className="status-icon" />;
+    if (weatherCode < 50) return <CloudIcon className="status-icon" />;
+    if (weatherCode < 80) return <CloudRainIcon className="status-icon" />;
+    return <WindIcon className="status-icon" />;
+  };
+
   return (
     <header className="status-header">
-      <div className="status-item">
-        <span>{dateTime}</span>
+      <div className="group-item">
+        <div className="status-item">
+          <span>{temperature !== null ? `${temperature}°C` : "N/A"}</span>
+          {getWeatherIcon()}
+          </div>
+        <div className="status-item">
+          <span>{dateTime}</span>
+        </div>
       </div>
-      <div className="status-item">
-        <BatteryFull className="status-icon" />
-        <span>{batteryLevel !== null ? `${batteryLevel}%` : "N/A"}</span>
-      </div>
-      <div className="status-item">
-        <span>{temperature !== null ? `${temperature}°C` : "N/A"}</span>
-        <ThermometerIcon className="status-icon" />
-      </div>
-      <div className="status-item">
-        <WifiIcon className="status-icon" />
-        <span>{wifiStatus !== null ? (wifiStatus ? "Connecté" : "Déconnecté") : "N/A"}</span>
+
+      <div className="group-item">
+        <div className="status-item help">
+          <p>AIDES</p>
+        </div>
+        <div className="status-item">
+          {wifiStatus ? (
+            <WifiIcon className="status-icon" />
+          ) : (
+            <WifiOffIcon className="status-icon" />
+          )}
+        </div>
+        <div className="status-item">{getBatteryIcon()}</div>
       </div>
     </header>
   );
