@@ -10,6 +10,7 @@ import {
   CloudIcon,
   CloudRainIcon,
   WindIcon,
+  WifiHigh,
 } from "lucide-react";
 import "../styles/header.css";
 
@@ -134,9 +135,9 @@ const Header = () => {
         <div className="status-item help">
           <p>AIDES</p>
         </div>
-        <div className="status-item">
+        <div className="status-item wifi">
           {wifiStatus ? (
-            <WifiIcon className="status-icon" />
+            <WifiHigh className="status-icon" />
           ) : (
             <WifiOffIcon className="status-icon" />
           )}

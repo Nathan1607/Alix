@@ -17,11 +17,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   background: #08122B;
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: 3rem;
+  height: 4rem;
   font-family: 'FFNort', sans-serif;
 }
 
@@ -45,9 +45,13 @@
 }
 
 .status-icon {
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
   color: white;
+}
+
+.wifi {
+  padding-bottom: .5rem;
 }
 
 .help {
@@ -67,8 +71,8 @@
     font-size: 1.5rem;
   }
   .status-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }
 
@@ -81,7 +85,7 @@
     font-size: 1.2rem;
   }
   .status-icon {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 2rem;
+    height: 2rem;
   }
 }
