@@ -37,7 +37,7 @@ const YellowBar: React.FC<YellowBarProps> = ({
         {showSettings && (
           <button className="settings-button">
             <SettingsIcon className="icon" />
-            <span>Paramètres</span>
+            <span className='text-param'>Paramètres</span>
           </button>
         )}
       </div>
@@ -48,8 +48,8 @@ const YellowBar: React.FC<YellowBarProps> = ({
 export default YellowBar;
 
 /*
-  - Ajout de la police d'écriture
-  - Personnalisation du titre général
+  - Ajout de la police d'écriture -> Ok
+  - Personnalisation du titre général -> Ok
   - Ajout du logo (Attente du logo) -> Voir Whastapp
   - Application du style du bouton Paramètre
 */
