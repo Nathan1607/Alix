@@ -47,8 +47,8 @@
 }
 
 .logo {
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
   margin-right: 0.5rem;
 }
 
@@ -56,6 +56,8 @@
   background: none;
   border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .text-param {
@@ -72,4 +74,41 @@
 
 .right-section .icon {
   color: white;
+}
+
+/* Media queries pour tablettes */
+@media (max-width: 1024px) {
+  .yellow-bar {
+    height: 3rem;
+    padding: 0.4rem 0.8rem;
+  }
+  .back-button, .page-title, .text-param {
+    font-size: 1.2rem;
+  }
+  .icon, .logo {
+    width: 2rem;
+    height: 2rem;
+  }
+  .right-section {
+    padding: 0.2rem 1rem;
+  }
+}
+
+/* Media queries pour mobiles */
+@media (max-width: 768px) {
+  .yellow-bar {
+    height: 2.5rem;
+    padding: 0.3rem 0.5rem;
+  }
+  .back-button, .page-title, .text-param {
+    font-size: 1rem;
+  }
+  .icon, .logo {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+  .right-section {
+    padding: 0.2rem 0.8rem;
+    border-radius: 0.8rem;
+  }
 }

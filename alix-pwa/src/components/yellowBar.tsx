@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowLeftIcon, SettingsIcon } from "lucide-react";
 import '../styles/yellowBar.css';
+import AlixHead from '../assets/alix-head.svg';
 
 interface YellowBarProps {
   title: string;
@@ -29,7 +30,7 @@ const YellowBar: React.FC<YellowBarProps> = ({
       </div>
 
       <div className="center-section">
-        {showLogo && <img src="/path/to/logo.png" alt="Logo" className="logo" />}
+        {showLogo && <img src={AlixHead} alt="Logo" className="logo" />}
         <h1 className="page-title">{title}</h1>
       </div>
 
@@ -47,9 +48,3 @@ const YellowBar: React.FC<YellowBarProps> = ({
 
 export default YellowBar;
 
-/*
-  - Ajout de la police d'écriture -> Ok
-  - Personnalisation du titre général -> Ok
-  - Ajout du logo (Attente du logo) -> Voir Whastapp
-  - Application du style du bouton Paramètre
-*/
