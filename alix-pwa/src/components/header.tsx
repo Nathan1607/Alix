@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  WifiIcon,
   BatteryIcon,
   WifiOffIcon,
   BatteryFullIcon,
@@ -13,6 +12,7 @@ import {
   WifiHigh,
 } from "lucide-react";
 import "../styles/header.css";
+import AlixHead from '../assets/alix-head.svg';
 
 declare global {
   interface Navigator {
@@ -133,6 +133,7 @@ const Header = () => {
 
       <div className="group-item">
         <div className="status-item help">
+          <img src={AlixHead} alt="Alix" className="alix-head" />
           <p>AIDES</p>
         </div>
         <div className="status-item wifi">

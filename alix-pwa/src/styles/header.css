@@ -60,6 +60,11 @@
   padding-right: 2rem;
 }
 
+.alix-head {
+  width: 2rem;
+  height: 2rem;
+}
+
 
 /* Media queries pour l'adaptation aux tablettes */
 @media (max-width: 1024px) {
