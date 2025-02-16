@@ -24,7 +24,7 @@ export default function LandingPage() {
 
       <section id="reassurance">
         <div className="container-col">
-          <h2 className="title-2">Soyons là pour eux</h2>
+          <h2 className="title-2">Soyons là pour <span className="text-pink">eux</span></h2>
           <div className="rea-list">
             <p>
               <span className="info-rea">49%</span> des personnes âgées disent
