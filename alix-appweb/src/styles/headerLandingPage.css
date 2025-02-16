@@ -1,6 +1,7 @@
 header {
     background-color: white;
     margin: auto;
+    height: 6rem;
 }
 
 a {
@@ -9,7 +10,7 @@ a {
     font-size: 1rem;
 }
 
-.test {
+.container {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -17,10 +18,10 @@ a {
 
 ul {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     list-style: none;
-    width: 100%;
+    width: 50%;
 }
 
 li{

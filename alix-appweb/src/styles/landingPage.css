@@ -4,7 +4,8 @@
     box-sizing: border-box;
 }
 
-.firstPart {
+ #hero-banner {
+    position: relative;
     background-image: url('../assets/img-landingPage.jpg');
     background-size: cover;
     background-position: center;
@@ -17,4 +18,71 @@
     justify-content: center;
     padding-left: 10%; 
     text-align: left;
+    overflow: hidden;
+}
+
+#hero-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+    pointer-events: none;
+}
+
+#hero-banner .container {
+    position: relative;
+    z-index: 1;
+}
+
+#hero-banner .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-left: 10%; 
+    text-align: left;
+}
+
+.text-Alix {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #D56B59;
+}
+
+#hero-banner .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+    max-width: 400px;
+}
+
+#hero-banner p {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-top: 10px;
+    max-width: 300px;
+}
+
+.scroll-down {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(10px);
+    }
 }
