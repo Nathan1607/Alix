@@ -104,8 +104,8 @@
 }
 
 #reassurance .title-2 {
-    max-width: 10rem;
-    font-size: 2rem;
+    max-width: 15rem;
+    font-size: 2.5rem;
     font-weight: bold;
     color: #333;
 }
@@ -138,3 +138,113 @@
     font-size: 1.5rem;
 }
 
+
+/* Section Solution */
+#solution {
+    background-color: #FAFAFA;
+    padding: 4rem 0rem;
+    text-align: center;
+}
+
+#solution .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+#solution .title-2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #494949;
+}
+
+#solution .text-solution {
+    font-size: 1.2rem;
+    color: #737373;
+    max-width: 23rem;
+}
+
+
+/* Section Avantages */
+#avantages {
+    background-color: #FFFFFF;
+    padding: 4rem 0rem;
+}
+
+#avantages .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+#avantages .title-2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #494949;
+}
+
+#avantages .text-avantages {
+    font-size: 1.2rem;
+    color: #737373;
+    max-width: 30rem;
+}
+
+#avantages .avantages-list {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+#avantages .avantages-item {
+    gap: 1rem;
+    max-width: 23rem;
+    border-radius: 1rem;
+    box-shadow: 0rem .4rem 1rem rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    padding-left: 2rem;
+}
+
+#avantages .avantages-item img {
+    width: 3rem;
+    height: 3rem;
+    color: #D56B59;
+}
+
+#avantages .avantages-item h3 {
+    padding: .5rem 0rem;
+    font-size: 1.2rem;
+    color: #1E1E1E;
+}
+
+#avantages .avantages-item p {
+    font-size: 1rem;
+    color: #737373;
+    text-align: center;
+}
+
+
+#avantages .avantages-item ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    gap: .5rem;
+    width: 80%; 
+}
+
+#avantages .avantages-item ul li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    color: #737373;
+}
+
+#avantages .avantages-item ul li::before {
+    content: "-";
+    color: #737373;
+    font-size: 1.2rem;
+}

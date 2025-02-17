@@ -1,6 +1,9 @@
 import HeaderLandingPage from "../components/headerLandingPage";
 import "../styles/landingPage.css";
 import { ChevronDown } from "lucide-react";
+import tabFamily from '../assets/tab_family.svg';
+import tabHome from '../assets/tab_home-city.svg';
+import tabCalendar from '../assets/tab_calendar-sharp.svg';
 
 export default function LandingPage() {
   return (
@@ -45,7 +48,7 @@ export default function LandingPage() {
       <section id="solution">
         <div className="container">
           <h2 className="title-2">Notre solution</h2>
-          <p>
+          <p className="text-solution">
             <span>Alix</span>, la plateforme numérique qui centralise tous les
             besoins des seniors
           </p>
@@ -56,10 +59,10 @@ export default function LandingPage() {
       <section id="avantages">
         <div className="container">
           <h2 className="title-2">Les avantages d’Alix</h2>
-          <p>Votre assistant numérique au quotidien</p>
+          <p className="text-avantages">Votre assistant numérique au quotidien</p>
           <div className="avantages-list">
             <div className="avantages-item">
-              <img src="" alt="icon" />
+              <img src={tabFamily} alt="icon" />
               <div>
                 <h3>Un lien social constant</h3>
                 <ul>
@@ -72,7 +75,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="avantages-item">
-              <img src="" alt="icon" />
+              <img src={tabCalendar} alt="icon" />
               <div>
                 <h3>Une aide au quotidien</h3>
                 <ul>
@@ -86,7 +89,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="avantages-item">
-              <img src="" alt="icon" />
+              <img src={tabHome} alt="icon" />
               <div>
                 <h3>Gestion par les proches</h3>
                 <ul>
@@ -123,3 +126,6 @@ export default function LandingPage() {
     </>
   );
 }
+
+
+// Voir Gaëtan pour le nom de domaine et si il faut que j'en rachète un pour le site
