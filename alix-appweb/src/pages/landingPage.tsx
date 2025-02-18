@@ -1,9 +1,11 @@
 import HeaderLandingPage from "../components/headerLandingPage";
 import "../styles/landingPage.css";
 import { ChevronDown } from "lucide-react";
-import tabFamily from '../assets/tab_family.svg';
-import tabHome from '../assets/tab_home-city.svg';
-import tabCalendar from '../assets/tab_calendar-sharp.svg';
+import tabFamily from "../assets/tab_family.svg";
+import tabHome from "../assets/tab_home-city.svg";
+import tabCalendar from "../assets/tab_calendar-sharp.svg";
+import logoAlix from "../assets/Alix-logo.svg";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 export default function LandingPage() {
   return (
@@ -21,13 +23,15 @@ export default function LandingPage() {
           </p>
         </div>
         <a href="#reassurance" className="scroll-down">
-            <ChevronDown size={32} />
-          </a>
+          <ChevronDown size={32} />
+        </a>
       </section>
 
       <section id="reassurance">
         <div className="container-col">
-          <h2 className="title-2">Soyons là pour <span className="text-pink">eux</span></h2>
+          <h2 className="title-2">
+            Soyons là pour <span className="text-pink">eux</span>
+          </h2>
           <div className="rea-list">
             <p>
               <span className="info-rea">49%</span> des personnes âgées disent
@@ -59,7 +63,9 @@ export default function LandingPage() {
       <section id="avantages">
         <div className="container">
           <h2 className="title-2">Les avantages d’Alix</h2>
-          <p className="text-avantages">Votre assistant numérique au quotidien</p>
+          <p className="text-avantages">
+            Votre assistant numérique au quotidien
+          </p>
           <div className="avantages-list">
             <div className="avantages-item">
               <img src={tabFamily} alt="icon" />
@@ -105,12 +111,14 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="inscription">
+      <section id="contact">
         <div className="container">
-          <p>Vous êtes intéréssés ?</p>
-          <h2 className="title-2">Suivez l’évolution de notre projet</h2>
-          <a href="http://" target="_blank" rel="noopener noreferrer">
-            Inscrivez-vous sur notre Google Forms
+          <h2 className="title-2">Contactez-nous</h2>
+          <p>
+            Une question ou une demande d'information ? Envoyez-nous un e-mail !
+          </p>
+          <a href="mailto:gaulardnathan@mail.com" className="contact-button">
+            Nous contacter
           </a>
         </div>
       </section>
@@ -118,14 +126,48 @@ export default function LandingPage() {
       <footer>
         <div className="container">
           <a href="" className="logo">
-            <img src="" alt="Logo" />
+            <img src={logoAlix} alt="Logo" />
           </a>
-          <p></p>
+
+          <div className="social-links">
+            <a
+              href="http://facebook.com/profile.php?id=61568554250575"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaFacebookF size={24} />
+            </a>
+            <a
+              href="https://www.instagram.com/solution.alix/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram size={24} />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/solution-alix/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaLinkedinIn size={24} />
+            </a>
+          </div>
+
+          <div>
+          <a href="/politique-de-confidentialite" className="privacy-policy">
+            Politique de confidentialité
+          </a>
+          <br></br>
+          <a href="/mention-legale" className="mention-legale">
+            Mention legale
+          </a>
+          </div>
         </div>
       </footer>
     </>
   );
 }
 
-
 // Voir Gaëtan pour le nom de domaine et si il faut que j'en rachète un pour le site
+// Ajout d'une bannière de cookie pour la récupération de donnée +
+// Ajout des mentions légales et Politique de confidentialité
