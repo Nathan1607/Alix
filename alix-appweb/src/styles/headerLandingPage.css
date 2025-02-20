@@ -76,6 +76,14 @@ li{
         pointer-events: auto; 
     }
 
+    ul li {
+        margin: .5rem 0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
     .menu-toggle {
         display: block;
         background: none;

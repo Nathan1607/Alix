@@ -153,12 +153,11 @@ export default function LandingPage() {
             </a>
           </div>
 
-          <div>
+          <div className="privacy">
           <a href="/politique-de-confidentialite" className="privacy-policy">
             Politique de confidentialité
           </a>
-          <br></br>
-          <a href="/mention-legale" className="mention-legale">
+          <a href="/mention-legale" className="privacy-policy">
             Mention legale
           </a>
           </div>
@@ -169,5 +168,11 @@ export default function LandingPage() {
 }
 
 // Voir Gaëtan pour le nom de domaine et si il faut que j'en rachète un pour le site
-// Ajout d'une bannière de cookie pour la récupération de donnée +
+// Ajout d'une bannière de cookie pour la récupération de donnée
 // Ajout des mentions légales et Politique de confidentialité
+
+
+/*
+Des packages existe déjà : 
+Concernant la création de la bannière à cookie, regarder concernant les scripts à exécuter si oui
+*/

@@ -8,6 +8,7 @@ section {
   scroll-margin-top: 6rem;
 }
 
+
 /* First Part */
 #hero-banner {
   position: relative;
@@ -327,6 +328,10 @@ footer .privacy-policy:hover {
   color: white;
 }
 
+footer .privacy{
+  display: grid;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   #hero-banner {
@@ -432,10 +437,6 @@ footer .privacy-policy:hover {
   }
 
   footer .privacy-policy {
-    margin-bottom: 1rem;
-  }
-
-  footer .mention-legale {
-    padding-top: 2rem;
+    margin-bottom: 1rem; 
   }
 }
