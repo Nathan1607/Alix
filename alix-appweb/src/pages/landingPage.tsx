@@ -6,6 +6,8 @@ import tabHome from "../assets/tab_home-city.svg";
 import tabCalendar from "../assets/tab_calendar-sharp.svg";
 import logoAlix from "../assets/Alix-logo.svg";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import '../assets/fonts/FFNort/stylesheet.css';
+import '../assets/fonts/Aktinson_Hyperlegible/stylesheet.css';
 
 export default function LandingPage() {
   return (
@@ -167,7 +169,7 @@ export default function LandingPage() {
   );
 }
 
-// Voir Gaëtan pour le nom de domaine et si il faut que j'en rachète un pour le site
+//Concernant le nom de domaine, voir si encore valable via OVH sinon racheter un nom de domaine via l'hébergement.
 // Ajout d'une bannière de cookie pour la récupération de donnée
 // Ajout des mentions légales et Politique de confidentialité
 
