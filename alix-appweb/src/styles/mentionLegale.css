@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+section {
+  scroll-margin-top: 6rem;
+}
+
+.mentions-legales {
+  background-color: #fafafa;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.mentions-legales-container {
+  max-width: 80%;
+  margin: 0 auto;
+  background: #fff;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.mentions-legales-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #494949;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-family: 'Atkinson Hyperlegible Bold', sans-serif;
+}
+
+.mentions-legales p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #737373;
+  margin-bottom: 1rem;
+  font-family: 'FF Nort Med', sans-serif;
+}
+
+.mentions-legales h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #d56b59;
+  margin-top: 2rem;
+  text-align: left;
+  font-family: 'Atkinson Hyperlegible Bold', sans-serif;
+}
+
+.mentions-legales p strong {
+  color: #333;
+}
+
+a {
+  color: #d56b59;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #b25046;
+}
+
+@media (max-width: 768px) {
+  .mentions-legales-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .mentions-legales-title {
+    font-size: 2rem;
+  }
+
+  .mentions-legales h2 {
+    font-size: 1.5rem;
+  }
+
+  .mentions-legales p {
+    font-size: 1rem;
+  }
+}

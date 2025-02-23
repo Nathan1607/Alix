@@ -2,7 +2,6 @@ import "../styles/headerLandingPage.css";
 import logoAlix from "../assets/Alix-logo.svg";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import '../assets/fonts/FFNort/stylesheet.css';
 
 export default function headerLandingPage() {
   
