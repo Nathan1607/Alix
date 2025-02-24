@@ -177,6 +177,12 @@ section {
   font-family: 'FF Nort Med', sans-serif;
 }
 
+#solution .solution-img {
+  width: 60rem;
+  height: auto;
+  object-fit: cover;
+}
+
 /* Section Avantages */
 #avantages {
   background-color: #ffffff;

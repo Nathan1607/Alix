@@ -8,6 +8,7 @@ import tabHome from "../assets/tab_home-city.svg";
 import tabCalendar from "../assets/tab_calendar-sharp.svg";
 import logoAlix from "../assets/Alix-logo.svg";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import alixMockup from '../assets/alix-tab-mockup.png';
 
 export default function LandingPage() {
   return (
@@ -58,7 +59,7 @@ export default function LandingPage() {
             <span>Alix</span>, la plateforme numérique qui centralise tous les
             besoins des seniors
           </p>
-          <img src="" alt="Alix" className="solution-img" />
+          <img src={alixMockup} alt="Alix" className="solution-img" />
         </div>
       </section>
 
