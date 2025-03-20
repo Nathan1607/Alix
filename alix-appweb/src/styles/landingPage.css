@@ -468,4 +468,10 @@ footer .privacy{
     flex-direction: column;
     align-items: center;
   }
+
+  #solution .solution-img {
+    width: 30rem;
+    height: auto;
+    object-fit: cover;
+  }
 }

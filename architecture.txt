@@ -1,0 +1,54 @@
+.
+├── LICENSE
+├── README.md
+
+
+├── alix-api
+│   ├── Dockerfile          # Conteneurisation du backend
+│   ├── index.ts            # Point d’entrée principal
+│   ├── package.json        # Dépendances du projet
+│   ├── src                 # Dossier source
+│   │   ├── Middleware      # Gestion des middlewares (authentification, validation, logs)
+│   │   ├── auth            # Gestion de l’authentification et des permissions
+│   │   ├── class           # Définition des classes et services métiers
+│   │   ├── config          # Configuration de l’API (variables d’environnement, connexion DB)
+│   │   └── routes          # Définition des routes et endpoints de l’API
+│   └── tsconfig.json       # Configuration TypeScript
+
+
+├── alix-appweb
+│   ├── Dockerfile                  # Conteneurisation du frontend
+│   ├── src                         # Dossier source principal
+│   │   ├── Routes.tsx              # Définition des routes de l’application
+│   │   ├── assets                  # Ressources statiques (images, polices)
+│   │   ├── components              # Composants réutilisables
+│   │   ├── pages                   # Pages principales de l’application       
+│   │   ├── styles                  # Fichiers de styles
+│   │   └── main.tsx                # Point d’entrée React
+│   ├── tsconfig.json               # Configuration TypeScript
+│   ├── package.json                # Dépendances du projet
+│   └── vite.config.ts              # Configuration Vitec
+
+
+├── alix-pwa    
+│   ├── Dockerfile                  # Conteneurisation
+│   ├── public                      # Ressources statiques
+│   │   ├── manifest.json           # Configuration PWA
+│   │   ├── service-worker.ts       # Service Worker pour la mise en cache
+│   ├── src                         # Dossier source
+│   │   ├── App.tsx                 # Composant principal
+│   │   ├── assets                  # Images et polices
+│   │   ├── components              # Composants réutilisables
+│   │   ├── pages                   # Pages de l’application
+│   │   ├── routes                  # Gestion des routes
+│   │   ├── styles                  # Fichiers de style
+│   │   └── main.tsx                # Point d’entrée de l’application
+│   ├── package.json                # Dépendances du projet
+│   ├── tsconfig.json               # Configuration TypeScript
+│   └── vite.config.ts              # Configuration Vite
+└── docker-compose.yml
+
+docker-compose.yml
+├── Définit les conteneurs pour `alix-api`, `alix-appweb`, `alix-pwa`, `postgres`, `pgadmin`
+├── Gère les connexions entre les services (ports, réseaux)
+├── Facilite la mise en production avec une orchestration cohérente
