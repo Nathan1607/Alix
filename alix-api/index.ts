@@ -5,6 +5,7 @@ import { AppDataSource } from "./src/config/data-source";
 import userRoutes from "./src/routes/users.routes";
 import { setupSwagger } from "./src/config/swagger";
 import authRouter from "./src/routes/auth.routes";
+import communesRoutes from "./src/routes/communes.routes";
 
 import testRouter from "./src/routes/test.routes";
 
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", userRoutes);
 app.use("/auth", authRouter);
+app.use("/communes", communesRoutes);
 
 app.use("/test", testRouter);
 
