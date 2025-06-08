@@ -1,10 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import { AppDataSource } from "./src/class/data-source"; 
-import userRouter from "./src/routes/user.routes";
+import { AppDataSource } from "./src/config/data-source"; 
+import userRoutes from "./src/routes/users.routes";
 import { setupSwagger } from "./src/config/swagger";
 import authRouter from "./src/routes/auth.routes";
+
+import testRouter from "./src/routes/test.routes";
 
 const app = express();
 const PORT = 3000;
@@ -16,8 +18,10 @@ app.get("/", (req, res) => {
   res.redirect("/api-docs");
 });
 
-app.use("/users", userRouter);
+app.use("/users", userRoutes);
 app.use("/auth", authRouter);
+
+app.use("/test", testRouter);
 
 setupSwagger(app);
 

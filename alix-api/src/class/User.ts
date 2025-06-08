@@ -1,28 +1,33 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, OneToMany } from 'typeorm';
+import { Commune } from './Commune';
+import { Registration } from './Registration';
 
-@Entity("User")
+@Entity('users')
 export class User {
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-    @Column({ nullable: true })
-    idCommune!: number;
+  @Column()
+  first_name!: string;
 
-    @Column({ nullable: true })
-    idParametre!: number;
+  @Column()
+  last_name!: string;
 
-    @Column({ type: "varchar", nullable: true })
-    nom!: string;
+  @ManyToOne(() => Commune, commune => commune.users)
+  commune!: Commune;
 
-    @Column({ type: "varchar", nullable: true })
-    prenom!: string;
+  @Column({ nullable: true })
+  address!: string;
 
-    @Column({ type: "varchar", nullable: true })
-    adresse!: string;
+  @Column({ nullable: true })
+  phone_landline!: string;
 
-    @Column({ nullable: true })
-    numeroFixe!: number;
+  @Column({ nullable: true })
+  phone_mobile!: string;
 
-    @Column({ nullable: true })
-    numeroPortable!: number;
+  @CreateDateColumn()
+  created_at!: Date;
+
+  @OneToMany(() => Registration, registration => registration.user)
+  registrations!: Registration[];
 }

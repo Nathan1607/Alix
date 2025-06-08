@@ -22,8 +22,28 @@ const swaggerOptions = {
           type: "http",
           scheme: "bearer",
           bearerFormat: "JWT",
-        }
-      }
+        },
+      },
+      schemas: {
+        User: {
+          type: "object",
+          properties: {
+            id: {
+              type: "integer",
+              example: 1,
+            },
+            first_name: {
+              type: "string",
+              example: "John",
+            },
+            last_name: {
+              type: "string",
+              example: "Doe",
+            },
+          },
+          required: ["id", "first_name", "last_name"],
+        },
+      },
     },
     security: [{ bearerAuth: [] }],
   },
