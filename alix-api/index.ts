@@ -6,6 +6,8 @@ import userRoutes from "./src/routes/users.routes";
 import { setupSwagger } from "./src/config/swagger";
 import authRouter from "./src/routes/auth.routes";
 import communesRoutes from "./src/routes/communes.routes";
+import articlesRoutes from "./src/routes/articles.routes";
+import eventsRoutes from "./src/routes/events.routes";
 
 import testRouter from "./src/routes/test.routes";
 
@@ -22,6 +24,9 @@ app.get("/", (req, res) => {
 app.use("/users", userRoutes);
 app.use("/auth", authRouter);
 app.use("/communes", communesRoutes);
+app.use("/articles", articlesRoutes);
+app.use("/events", eventsRoutes);
+
 
 app.use("/test", testRouter);
 

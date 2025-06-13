@@ -1,6 +1,7 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { Express } from "express";
+import { Article } from "../class/Article";
 
 // Configuration de Swagger
 const swaggerOptions = {
@@ -47,13 +48,22 @@ const swaggerOptions = {
           type: "object",
           properties: {
             id: { type: "string", description: "Code INSEE ou identifiant unique", example: "72132" },
-            name: { type: "string", description: "Nom de la commune", example: "La Ferté-Bernard" },
-            postal_code: { type: "string", description: "Code postal", example: "72400" },
-            region: { type: "string", description: "Région administrative", example: "Pays de la Loire" },
-            department: { type: "string", description: "Département", example: "Sarthe" },
-            country: { type: "string", description: "Pays", example: "France" },
           },
-          required: ["id", "name", "postal_code", "region", "department", "country"],
+          required: ["id"],
+        },
+        Article: {
+          type: "object",
+          properties: {
+            id: { type: "integer", description: "Identifiant unique de l'article", example: 1 },
+          },
+          required: ["id"],
+        },
+        Event: {
+          type: "object",
+          properties: {
+            id: { type: "integer", description: "Identifiant unique de l'événement", example: 1 },  
+          },
+          required: ["id"],
         },
       },
     },
