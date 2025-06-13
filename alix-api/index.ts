@@ -8,6 +8,8 @@ import authRouter from "./src/routes/auth.routes";
 import communesRoutes from "./src/routes/communes.routes";
 import articlesRoutes from "./src/routes/articles.routes";
 import eventsRoutes from "./src/routes/events.routes";
+import registrationsRoutes from "./src/routes/registrations.routes";
+import workshopsRoutes from "./src/routes/workshops.routes";
 
 import testRouter from "./src/routes/test.routes";
 
@@ -26,7 +28,8 @@ app.use("/auth", authRouter);
 app.use("/communes", communesRoutes);
 app.use("/articles", articlesRoutes);
 app.use("/events", eventsRoutes);
-
+app.use("/registrations", registrationsRoutes);
+app.use("/workshops", workshopsRoutes);
 
 app.use("/test", testRouter);
 
