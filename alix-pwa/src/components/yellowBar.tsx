@@ -18,6 +18,7 @@ const YellowBar: React.FC<YellowBarProps> = ({
   showLogo = false,
   showSettings = false,
 }) => {
+
   return (
     <div className="yellow-bar">
       <div className="left-section">

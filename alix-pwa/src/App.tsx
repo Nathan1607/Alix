@@ -1,12 +1,17 @@
-import AppRoutes from './routes/AppRoutes'
+import Header from './components/header';
+import YellowBar from './components/yellowBar';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
-
   return (
-    <div className='App'>
-      <AppRoutes />
-    </div>
-  )
+    <>
+      <Header />
+      <YellowBar title="Ma page" showLogo showSettings />
+      <main style={{ paddingTop: '8rem' }}>
+        <AppRoutes />
+      </main>
+    </>
+  );
 }
 
-export default App
+export default App;
