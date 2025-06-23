@@ -46,6 +46,4 @@ export class Workshop {
   @Column()
   published_at!: Date;
 
-  @OneToMany(() => Registration, registration => registration.event)
-  registrations!: Registration[];
 }

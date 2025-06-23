@@ -1,8 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/header";
 import YellowBar from "../../components/yellowBar";
+import { registerToContent } from "../../api/api";
 
 type ContentItem = {
+  id?: number;
   title_1?: string;
   title_2?: string;
   title_3?: string;
@@ -26,7 +28,7 @@ const DetailItem = () => {
 
   const images = [item.img_1, item.img_2, item.img_3].filter(Boolean);
 
-  console.log("Détail de l'item :", item.type, item.start_time, item.end_time);
+  const userId = 1;
 
   const formatDate = (isoDate: string): string => {
     const date = new Date(isoDate);
@@ -178,8 +180,8 @@ const DetailItem = () => {
             Participer à cet {item.type === "atelier" ? "atelier" : "événement"}
           </h3>
           <p style={{ marginBottom: "0" }}>
-          {item.type === "atelier" ? "L'atelier" : "L'événement"} commencera le {item.start_time ? formatDate(item.start_time) : "Non spécifiée"} 
-            au {item.end_time ? formatDate(item.end_time) : "Non spécifiée"}
+          {item.type === "atelier" ? "L'atelier" : "L'événement"} commencera le {item.start_time ? formatDate(item.start_time) : "Non spécifiée"} - 
+             au {item.end_time ? formatDate(item.end_time) : "Non spécifiée"}
           </p>
         </div>
       
@@ -194,8 +196,23 @@ const DetailItem = () => {
             fontSize: "1rem",
             whiteSpace: "nowrap",
           }}
-          onClick={() => alert("Lien d'inscription à intégrer ici.")}
-        >
+          onClick={async () => {
+            try {
+              const contentType = item.type === "atelier" ? "workshop" : "event";
+          
+              await registerToContent({
+                userId: 1,
+                contentType,
+                contentId: Number(item.id),
+              });
+          
+              alert("Inscription réussie !");
+            } catch (error) {
+              console.error(error);
+              alert("Une erreur est survenue lors de l'inscription.");
+            }
+          }}
+          >
           S'inscrire à {item.type === "atelier" ? "l'atelier" : "l'événement"}
         </button>
       </div>

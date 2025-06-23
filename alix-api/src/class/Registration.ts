@@ -1,7 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from './User';
-import { Event } from './Event';
-import { Workshop } from './Workshop';
 
 @Entity('registrations')
 export class Registration {
@@ -20,16 +18,4 @@ export class Registration {
 
   @Column()
   registered_at!: Date;
-
-  // Relations indirectes (non typées par TypeORM, à gérer manuellement si besoin)
-  // event?: Event;
-  // workshop?: Workshop;
-
-  @ManyToOne(() => Event, event => event.registrations)
-  @JoinColumn({ name: 'event_id' })
-  event?: Event;
-
-  @ManyToOne(() => Workshop, workshop => workshop.registrations)
-  @JoinColumn({ name: 'workshop_id' })
-  workshop?: Workshop;
 }

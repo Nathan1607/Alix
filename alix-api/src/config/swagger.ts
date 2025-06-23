@@ -294,11 +294,6 @@ const swaggerOptions = {
               description: "Date de publication de l'événement", 
               example: "2025-06-10T10:00:00Z" 
             },
-            registrations: {
-              type: "array",
-              items: { $ref: "#/components/schemas/Registration" },
-              description: "Liste des inscriptions associées à l'événement"
-            }
           },
           required: ["id", "commune", "start_time", "end_time", "published_at", "title_1", "text_1"],
         },        
@@ -329,14 +324,8 @@ const swaggerOptions = {
               description: "Date et heure d'inscription", 
               example: "2025-06-13T10:00:00Z" 
             },
-            event: { 
-              $ref: '#/components/schemas/Event'
-            },
-            workshop: { 
-              $ref: '#/components/schemas/Workshop'
-            }
           },
-          required: ["id", "user", "content_type", "content_id", "registered_at", "event"],
+          required: ["id", "user", "content_type", "content_id", "registered_at"],
         },
         Workshop: {
           type: "object",
@@ -412,11 +401,6 @@ const swaggerOptions = {
               description: "Date de publication de l'atelier", 
               example: "2025-06-10T10:00:00Z" 
             },
-            registrations: {
-              type: "array",
-              items: { $ref: "#/components/schemas/Registration" },
-              description: "Liste des inscriptions associées à l'atelier"
-            }
           },
           required: ["id", "commune", "start_time", "end_time", "published_at", "title_1", "text_1"],
         },
