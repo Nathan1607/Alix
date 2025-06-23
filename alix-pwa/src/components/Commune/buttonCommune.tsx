@@ -13,13 +13,15 @@ const TabButton: React.FC<TabButtonProps> = ({ label, active, onClick, color = '
       onClick={onClick}
       style={{
         padding: '.5rem 1.6rem',
-        border: `2px solid ${color}`,
+        border: active ? "2px solid #004B8D" : "2px solid transparent",
         backgroundColor: active ? color : 'transparent',
         color: active ? '#fff' : color,
         borderRadius: '8px 8px 0 0',
         fontWeight: 600,
         cursor: 'pointer',
         outline: 'none',
+        fontSize: '1.3rem',
+        width: '10rem',
       }}
     >
       {label}

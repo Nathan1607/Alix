@@ -72,7 +72,7 @@ const CardItem: React.FC<CardItemProps> = ({
         </div>
 
         {/* Bouton à droite */}
-        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end' }}>
           <button
             onClick={onButtonClick}
             style={{

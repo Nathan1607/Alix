@@ -9,6 +9,7 @@ interface YellowBarProps {
   showBack?: boolean;
   showLogo?: boolean;
   showSettings?: boolean;
+  onBackClick?: () => void | Promise<void>;
 }
 
 const YellowBar: React.FC<YellowBarProps> = ({

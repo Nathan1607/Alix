@@ -7,6 +7,7 @@ import { Articles } from "../../types/articles";
 import { Workshops } from "../../types/workshop";
 import { Events } from "../../types/events";
 import { getArticles, getEvents, getWorkshops } from "../../api/api";
+import { useNavigate } from "react-router-dom";
 
 const Commune = () => {
   const tabs = ["Voir tout", "Actualités", "Événements", "Ateliers"];
@@ -19,14 +20,20 @@ const Commune = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const communeId = 72132;
+  const navigate = useNavigate();
+
+
   useEffect(() => {
     const fetchAllData = async () => {
       try {
         const [articlesData, eventsData, workshopsData] = await Promise.all([
-          getArticles(),
-          getEvents(),
-          getWorkshops(),
+          getArticles(communeId),
+          getEvents(communeId),
+          getWorkshops(communeId),
         ]);
+  
+        console.log("ID Commune", communeId);
 
         setArticles(articlesData);
         setEvents(eventsData);
@@ -37,7 +44,7 @@ const Commune = () => {
         setLoading(false);
       }
     };
-
+  
     fetchAllData();
   }, []);
 
@@ -62,8 +69,8 @@ const Commune = () => {
             title={article.title_1}
             description={article.text_1}
             buttonLabel="Lire l’article"
-            onButtonClick={() => console.log("Article ID:", article.id)}
-          />
+            onButtonClick={() => navigate('/detail', { state: { item: { ...article, type: 'article' } } })}
+            />
         ))
       );
     }
@@ -82,8 +89,8 @@ const Commune = () => {
             title={event.title_1}
             description={event.text_1}
             buttonLabel="Voir l’événement"
-            onButtonClick={() => console.log("Event ID:", event.id)}
-          />
+            onButtonClick={() => navigate('/detail', { state: { item: { ...event, type: 'evenement' } } })}
+            />
         ))
       );
     }
@@ -102,22 +109,31 @@ const Commune = () => {
             title={atelier.title_1}
             description={atelier.text_1}
             buttonLabel="Voir l’atelier"
-            onButtonClick={() => console.log("Atelier ID:", atelier.id)}
-          />
+            onButtonClick={() => navigate('/detail', { state: { item: { ...atelier, type: 'atelier' } } })}
+            />
         ))
       );
     }
 
     return (
       <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "1.5rem",
-          padding: "1rem 20px",
-        }}
+      style={{
+        border: '5px solid #004B8D',
+        borderRadius: '12px',
+        padding: '20px',
+        margin: '20px',
+        marginTop: '0',
+      }}
       >
-        {itemsToRender}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.5rem",
+          }}
+        >
+          {itemsToRender}
+        </div>
       </div>
     );
   };
@@ -138,10 +154,11 @@ const Commune = () => {
           gridTemplateColumns: "repeat(3, 1fr)",
           gap: "20px",
           justifyItems: "center",
-          padding: "20px",
+          padding: "20px 20px 0px 20px",
+          marginLeft: "1rem",
         }}
       >
-        <div style={{ display: "flex", gap: ".5rem", padding: "10px 20px" }}>
+        <div style={{ display: "flex", gap: ".5rem", padding: "20px 2Opx 0px 20px" }}>
           {tabs.map((tab) => (
             <TabButton
               key={tab}

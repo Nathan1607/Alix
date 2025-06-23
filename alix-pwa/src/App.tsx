@@ -7,7 +7,7 @@ function App() {
     <>
       <Header />
       <YellowBar title="Ma page" showLogo showSettings />
-      <main style={{ paddingTop: '8rem' }}>
+        <main style={{ paddingTop: '8rem' }}>
         <AppRoutes />
       </main>
     </>
