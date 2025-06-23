@@ -28,14 +28,26 @@ const eventRepository = AppDataSource.getRepository(Event);
  *               items:
  *                 $ref: '#/components/schemas/Event'
  */
-router.get('/', async (_req: Request, res: Response): Promise<void> => {
+router.get('/', async (req: Request, res: Response): Promise<void> => {
     try {
-        const events = await eventRepository.find({ relations: ['commune'] });
-        res.json(events);
+      const { communeId } = req.query;
+  
+      // Si communeId est présent, on filtre
+      const whereClause = communeId
+        ? { commune: { id: String(communeId) } }
+        : {};
+  
+      const events = await eventRepository.find({
+        where: whereClause,
+        relations: ['commune'],
+      });
+  
+      res.json(events);
     } catch (error) {
-        res.status(500).json({ message: 'Erreur lors de la récupération des événements' });
+      res.status(500).json({ message: 'Erreur lors de la récupération des événements' });
     }
 });
+  
 
 /**
  * @swagger

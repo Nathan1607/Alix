@@ -30,7 +30,14 @@ const workshopRepository = AppDataSource.getRepository(Workshop);
  */
 router.get('/', async (_req: Request, res: Response): Promise<void> => {
     try {
-        const workshops = await workshopRepository.find({ relations: ['commune'] });
+
+        const { communeId } = _req.query;
+
+        const whereClause = communeId
+            ? { commune: { id: String(communeId) } }
+            : {};
+
+        const workshops = await workshopRepository.find({ where: whereClause, relations: ['commune'] });
         res.json(workshops);
     } catch (error) {
         res.status(500).json({ message: 'Erreur lors de la récupération des ateliers' });
