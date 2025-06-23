@@ -152,17 +152,22 @@ const DetailItem = () => {
 
       {(item.type === "atelier" || item.type === "evenement") && (
         <div
-          style={{
-            backgroundColor: "#FFE6CC",
-            borderRadius: "12px",
-            padding: "20px",
-            marginTop: "2rem",
-            textAlign: "center",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-            width: "90%",
-            margin: "auto",
-          }}
-        >
+        style={{
+          backgroundColor: "#FFE6CC",
+          borderRadius: "12px",
+          padding: "20px",
+          marginTop: "2rem",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+          width: "90%",
+          margin: "auto",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center", // Centrage vertical
+          flexWrap: "wrap", // Adaptabilité mobile
+          gap: "1rem",
+        }}
+      >
+        <div>
           <h3
             style={{
               fontSize: "1.5rem",
@@ -172,25 +177,28 @@ const DetailItem = () => {
           >
             Participer à cet {item.type === "atelier" ? "atelier" : "événement"}
           </h3>
-          <p style={{ marginBottom: "15px" }}>
-          Date de début : {item.start_time ? formatDate(item.start_time) : "Non spécifiée"}<br />
-          Date de fin : {item.end_time ? formatDate(item.end_time) : "Non spécifiée"}
+          <p style={{ marginBottom: "0" }}>
+          {item.type === "atelier" ? "L'atelier" : "L'événement"} commencera le {item.start_time ? formatDate(item.start_time) : "Non spécifiée"} 
+            au {item.end_time ? formatDate(item.end_time) : "Non spécifiée"}
           </p>
-          <button
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "#333",
-              color: "#fff",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              fontSize: "1rem",
-            }}
-            onClick={() => alert("Lien d'inscription à intégrer ici.")}
-          >
-            Je m'inscris
-          </button>
         </div>
+      
+        <button
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#1f48ad",
+            color: "#fff",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+            fontSize: "1rem",
+            whiteSpace: "nowrap",
+          }}
+          onClick={() => alert("Lien d'inscription à intégrer ici.")}
+        >
+          S'inscrire à {item.type === "atelier" ? "l'atelier" : "l'événement"}
+        </button>
+      </div>
       )}
     </div>
   );
