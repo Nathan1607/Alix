@@ -1,4 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+  OneToMany,
+  JoinColumn,
+  Index,
+} from 'typeorm';
 import { Commune } from './Commune';
 import { Registration } from './Registration';
 
@@ -14,7 +23,12 @@ export class User {
   last_name!: string;
 
   @ManyToOne(() => Commune, commune => commune.users)
+  @JoinColumn({ name: 'commune_id' }) // explicite la FK
   commune!: Commune;
+
+  // (Optionnel : si tu veux accéder à l'id directement)
+  @Column({ name: 'commune_id' })
+  communeId!: string;
 
   @Column({ nullable: true })
   address!: string;
@@ -30,4 +44,9 @@ export class User {
 
   @OneToMany(() => Registration, registration => registration.user)
   registrations!: Registration[];
+
+  // Méthode utile
+  get fullName(): string {
+    return `${this.first_name} ${this.last_name}`;
+  }
 }

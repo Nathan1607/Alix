@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Commune } from './Commune';
 import { Registration } from './Registration';
 
@@ -7,7 +7,8 @@ export class Workshop {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => Commune, commune => commune.events)
+  @ManyToOne(() => Commune, commune => commune.workshops)
+  @JoinColumn({ name: 'commune_id' })
   commune!: Commune;
 
   @Column({ nullable: true })
@@ -45,5 +46,8 @@ export class Workshop {
 
   @Column()
   published_at!: Date;
+
+  @OneToMany(() => Registration, registration => registration.workshop)
+  registrations!: Registration[];
 
 }

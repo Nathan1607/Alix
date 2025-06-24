@@ -62,7 +62,7 @@ const Commune = () => {
             key={`article-${article.id}`}
             imageUrl={
               article.img_1 ??
-              "https://via.placeholder.com/300x200?text=Image+non+disponible"
+              ""
             }
             tag="Article"
             tagColor="#8B0000"
@@ -82,7 +82,7 @@ const Commune = () => {
             key={`event-${event.id}`}
             imageUrl={
               event.img_1 ??
-              "https://via.placeholder.com/300x200?text=Image+non+disponible"
+              ""
             }
             tag="Événement"
             tagColor="#004B8D"
@@ -102,7 +102,7 @@ const Commune = () => {
             key={`workshop-${atelier.id}`}
             imageUrl={
               atelier.img_1 ??
-              "https://via.placeholder.com/300x200?text=Image+non+disponible"
+              ""
             }
             tag="Atelier"
             tagColor="#007B55"

@@ -1,17 +1,12 @@
 import { Router, Request, Response } from 'express';
 import { AppDataSource } from '../config/data-source';
 import { Registration } from '../class/Registration';
-import { User } from '../class/User'; // Ajouté si tu as besoin de lier l'utilisateur
+import { User } from '../class/User';
+import { Event } from '../class/Event';
+import { Workshop } from '../class/Workshop';
 
 const router = Router();
 const registrationRepository = AppDataSource.getRepository(Registration);
-
-/**
- * @swagger
- * tags:
- *   name: Registrations
- *   description: API pour gérer les inscriptions
- */
 
 /**
  * @swagger
@@ -22,23 +17,70 @@ const registrationRepository = AppDataSource.getRepository(Registration);
  *     responses:
  *       200:
  *         description: Liste des inscriptions
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Registration'
  */
 router.get('/', async (_req: Request, res: Response): Promise<void> => {
-    try {
-        const registrations = await registrationRepository.find({
-            relations: ['user', 'event', 'workshop'],});
-        res.json(registrations);
-    } catch (error) {
-        res.status(500).json({
-            message: 'Erreur lors de la récupération des inscriptions',
-        });
+  try {
+    const registrations = await registrationRepository.find({
+      relations: ['user', 'event', 'workshop'],
+    });
+    res.json(registrations);
+  } catch (error) {
+    res.status(500).json({
+      message: 'Erreur lors de la récupération des inscriptions .',
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /registrations/check:
+ *   get:
+ *     summary: Vérifie si un utilisateur est inscrit à un événement ou un atelier
+ *     tags: [Registrations]
+ */
+router.get('/check', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { userId, eventId, workshopId } = req.query;
+
+    if (!userId || (!eventId && !workshopId)) {
+      res.status(400).json({ error: "Paramètres manquants" });
+      return;
     }
+
+    // const query = registrationRepository
+    //   .createQueryBuilder('registration')
+    //   .leftJoin('registration.user', 'user')
+    //   .leftJoin('registration.event', 'event')
+    //   .leftJoin('registration.workshop', 'workshop')
+    //   .where('user.id = :userId', { userId: Number(userId) });
+
+    // if (eventId) {
+    //   query.andWhere('event.id = :eventId', { eventId: Number(eventId) });
+    // } else if (workshopId) {
+    //   query.andWhere('workshop.id = :workshopId', { workshopId: Number(workshopId) });
+    // }
+
+    console.log('🧪 Params', { userId, eventId, workshopId });
+
+    const existing = await registrationRepository.findOne({
+      where: {
+         user: { id: Number(userId) },
+         event: eventId ? { id: Number(eventId) } : undefined,
+         workshop: workshopId ? { id: Number(workshopId) } : undefined,
+      },
+    });
+
+    res.json({ isRegistered: !!existing });
+  } catch (error) {
+    console.error("❌ Vérification inscription échouée:", error);
+  
+    const e = error as Error;
+  
+    res.status(500).json({
+      message: "Erreur lors de la récupération de l’inscription :",
+      detail: e.stack || e.message || 'Pas de stack disponible',
+    });
+  }
 });
 
 /**
@@ -47,37 +89,21 @@ router.get('/', async (_req: Request, res: Response): Promise<void> => {
  *   get:
  *     summary: Récupérer une inscription par ID
  *     tags: [Registrations]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID de l'inscription
- *     responses:
- *       200:
- *         description: Détails de l'inscription
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Registration'
- *       404:
- *         description: Inscription non trouvée
  */
 router.get('/:id', async (req: Request, res: Response): Promise<void> => {
-    try {
-        const registration = await registrationRepository.findOne({
-            where: { id: Number(req.params.id) },
-            relations: ['user', 'event', 'workshop'],
-        });
-        if (!registration) {
-            res.status(404).json({ message: 'Inscription non trouvée' });
-            return;
-        }
-        res.json(registration);
-    } catch (error) {
-        res.status(500).json({ message: 'Erreur lors de la récupération de l’inscription' });
+  try {
+    const registration = await registrationRepository.findOne({
+      where: { id: Number(req.params.id) },
+      relations: ['user', 'event', 'workshop'],
+    });
+    if (!registration) {
+      res.status(404).json({ message: 'Inscription non trouvée' });
+      return;
     }
+    res.json(registration);
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur lors de la récupération de l’inscription...' });
+  }
 });
 
 /**
@@ -86,52 +112,47 @@ router.get('/:id', async (req: Request, res: Response): Promise<void> => {
  *   post:
  *     summary: Créer une nouvelle inscription
  *     tags: [Registrations]
- *     requestBody:
- *       description: Données de l'inscription à créer
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Registration'
- *     responses:
- *       201:
- *         description: Inscription créée
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Registration'
- *       400:
- *         description: Données invalides
  */
 router.post('/', async (req: Request, res: Response): Promise<void> => {
-    try {
-        const { user_id, content_type, content_id, registered_at } = req.body;
-        
-        // Validation des données (facultatif, mais recommandé)
-        if (!user_id || !content_type || !content_id || !registered_at) {
-            res.status(400).json({ message: 'Données invalides, tous les champs sont requis' });
-            return;
-        }
+  try {
+    const { user_id, event_id, workshop_id, registered_at } = req.body;
 
-        // Création de l'inscription
-        const user = await AppDataSource.getRepository(User).findOne({ where: { id: user_id } });
-        if (!user) {
-            res.status(400).json({ message: 'Utilisateur non trouvé' });
-            return;
-        }
-
-        const newRegistration = registrationRepository.create({
-            user,
-            content_type,
-            content_id,
-            registered_at: new Date(registered_at),
-        });
-
-        const result = await registrationRepository.save(newRegistration);
-        res.status(201).json(result);
-    } catch (error) {
-        res.status(400).json({ message: 'Erreur lors de la création de l’inscription', error });
+    if (!user_id || (!event_id && !workshop_id) || !registered_at) {
+      res.status(400).json({ message: 'Données invalides, tous les champs sont requis' });
+      return;
     }
+
+    const user = await AppDataSource.getRepository(User).findOne({ where: { id: user_id } });
+    if (!user) {
+      res.status(400).json({ message: 'Utilisateur non trouvé' });
+      return;
+    }
+
+    const event = event_id
+      ? await AppDataSource.getRepository(Event).findOne({ where: { id: event_id } })
+      : undefined;
+
+    const workshop = workshop_id
+      ? await AppDataSource.getRepository(Workshop).findOne({ where: { id: workshop_id } })
+      : undefined;
+
+    if (!event && !workshop) {
+      res.status(400).json({ message: 'Ni event_id ni workshop_id fourni' });
+      return;
+    }
+
+    const newRegistration = registrationRepository.create({
+      user: user as User,
+      event: event as Event | undefined,
+      workshop: workshop as Workshop | undefined,
+      registered_at: new Date(registered_at),
+    });
+
+    const result = await registrationRepository.save(newRegistration);
+    res.status(201).json(result);
+  } catch (error) {
+    res.status(400).json({ message: 'Erreur lors de la création de l’inscription', error });
+  }
 });
 
 /**
@@ -140,96 +161,94 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
  *   put:
  *     summary: Mettre à jour une inscription par ID
  *     tags: [Registrations]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID de l'inscription à mettre à jour
- *     requestBody:
- *       description: Données mises à jour de l'inscription
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Registration'
- *     responses:
- *       200:
- *         description: Inscription mise à jour
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Registration'
- *       400:
- *         description: Données invalides
- *       404:
- *         description: Inscription non trouvée
  */
 router.put('/:id', async (req: Request, res: Response): Promise<void> => {
-    try {
-        const registration = await registrationRepository.findOne({
-            where: { id: Number(req.params.id) },
-            relations: ['user', 'event', 'workshop'],
-        });
+  try {
+    const registration = await registrationRepository.findOne({
+      where: { id: Number(req.params.id) },
+      relations: ['user', 'event', 'workshop'],
+    });
 
-        if (!registration) {
-            res.status(404).json({ message: 'Inscription non trouvée' });
-            return;
-        }
-
-        const { user_id, content_type, content_id, registered_at } = req.body;
-
-        if (user_id) {
-            const user = await AppDataSource.getRepository(User).findOne({ where: { id: user_id } });
-            if (!user) {
-                res.status(400).json({ message: 'Utilisateur non trouvé' });
-                return;
-            }
-            registration.user = user;
-        }
-
-        if (content_type) registration.content_type = content_type;
-        if (content_id) registration.content_id = content_id;
-        if (registered_at) registration.registered_at = new Date(registered_at);
-
-        const updatedRegistration = await registrationRepository.save(registration);
-        res.json(updatedRegistration);
-    } catch (error) {
-        res.status(400).json({ message: 'Erreur lors de la mise à jour de l’inscription', error });
+    if (!registration) {
+      res.status(404).json({ message: 'Inscription non trouvée' });
+      return;
     }
+
+    const { user_id, event_id, workshop_id, registered_at } = req.body;
+
+    if (user_id) {
+      const user = await AppDataSource.getRepository(User).findOne({ where: { id: user_id } });
+      if (!user) {
+        res.status(400).json({ message: 'Utilisateur non trouvé' });
+        return;
+      }
+      registration.user = user;
+    }
+
+    if (event_id) {
+      const event = await AppDataSource.getRepository(Event).findOne({ where: { id: event_id } });
+      if (!event) {
+        res.status(400).json({ message: 'Événement non trouvé' });
+        return;
+      }
+      registration.event = event;
+      registration.workshop = undefined;
+    } else if (workshop_id) {
+      const workshop = await AppDataSource.getRepository(Workshop).findOne({ where: { id: workshop_id } });
+      if (!workshop) {
+        res.status(400).json({ message: 'Atelier non trouvé' });
+        return;
+      }
+      registration.workshop = workshop;
+      registration.event = undefined;
+    }
+
+    if (registered_at) {
+      registration.registered_at = new Date(registered_at);
+    }
+
+    const updatedRegistration = await registrationRepository.save(registration);
+    res.json(updatedRegistration);
+  } catch (error) {
+    res.status(400).json({ message: 'Erreur lors de la mise à jour de l’inscription', error });
+  }
 });
 
 /**
  * @swagger
- * /registrations/{id}:
+ * /registrations:
  *   delete:
- *     summary: Supprimer une inscription par ID
+ *     summary: Supprimer une inscription via userId + eventId ou workshopId
  *     tags: [Registrations]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID de l'inscription à supprimer
- *     responses:
- *       204:
- *         description: Inscription supprimée avec succès (pas de contenu)
- *       404:
- *         description: Inscription non trouvée
  */
-router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
-    try {
-        const result = await registrationRepository.delete(Number(req.params.id));
-        if (result.affected === 0) {
-            res.status(404).json({ message: 'Inscription non trouvée' });
-            return;
-        }
-        res.status(204).send();
-    } catch (error) {
-        res.status(400).json({ message: 'Erreur lors de la suppression de l’inscription', error });
+router.delete('/', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { userId, eventId, workshopId } = req.query;
+
+    if (!userId || (!eventId && !workshopId)) {
+      res.status(400).json({ message: 'Paramètres manquants' });
+      return;
     }
+
+    const registration = await registrationRepository.findOne({
+      where: {
+        user: { id: Number(userId) },
+        ...(eventId ? { event: { id: Number(eventId) } } : {}),
+        ...(workshopId ? { workshop: { id: Number(workshopId) } } : {}),
+      },
+      relations: ['user', 'event', 'workshop'],
+    });
+
+    if (!registration) {
+      res.status(404).json({ message: 'Inscription non trouvée' });
+      return;
+    }
+
+    await registrationRepository.delete(registration.id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur lors de la désinscription', error });
+  }
 });
 
 export default router;

@@ -19,7 +19,7 @@ const CardItem: React.FC<CardItemProps> = ({
   buttonLabel,
   onButtonClick,
 }) => {
-  const fallbackImage = 'https://via.placeholder.com/200x200?text=Image+non+disponible';
+  const fallbackImage = '';
 
   return (
     <div

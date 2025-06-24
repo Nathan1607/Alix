@@ -1,7 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/header";
 import YellowBar from "../../components/yellowBar";
-import { registerToContent } from "../../api/api";
+import { checkRegistration, registerToContent, unregisterFromContent } from "../../api/api";
+import { useEffect, useState } from "react";
 
 type ContentItem = {
   id?: number;
@@ -30,6 +31,9 @@ const DetailItem = () => {
 
   const userId = 1;
 
+  const [isRegistered, setIsRegistered] = useState<boolean>(false);
+  const [confirmationMessage, setConfirmationMessage] = useState<string>("");
+
   const formatDate = (isoDate: string): string => {
     const date = new Date(isoDate);
     return new Intl.DateTimeFormat("fr-FR", {
@@ -40,6 +44,27 @@ const DetailItem = () => {
       minute: "2-digit",
     }).format(date);
   };
+
+  useEffect(() => {
+    const fetchRegistration = async () => {
+      if (!item?.id || !item?.type) return;
+      const contentType = item.type === "atelier" ? "workshop" : "event";
+  
+      try {
+        const response = await checkRegistration(
+          1,
+          contentType,
+          Number(item.id)
+        );
+  
+        setIsRegistered(response.isRegistered);
+      } catch (e) {
+        console.error("Erreur de vérification :", e);
+      }
+    };
+  
+    fetchRegistration();
+  }, [item]);
 
   return (
     <div>
@@ -185,36 +210,83 @@ const DetailItem = () => {
           </p>
         </div>
       
-        <button
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#1f48ad",
-            color: "#fff",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontSize: "1rem",
-            whiteSpace: "nowrap",
-          }}
-          onClick={async () => {
-            try {
-              const contentType = item.type === "atelier" ? "workshop" : "event";
-          
-              await registerToContent({
-                userId: 1,
-                contentType,
-                contentId: Number(item.id),
-              });
-          
-              alert("Inscription réussie !");
-            } catch (error) {
-              console.error(error);
-              alert("Une erreur est survenue lors de l'inscription.");
-            }
-          }}
-          >
-          S'inscrire à {item.type === "atelier" ? "l'atelier" : "l'événement"}
-        </button>
+        {confirmationMessage && (
+  <p style={{ color: "green", fontWeight: "bold" }}>{confirmationMessage}</p>
+)}
+
+{isRegistered ? (
+  <button
+    onClick={async () => {
+      const contentType = item.type === "atelier" ? "workshop" : "event";
+
+      try {
+        await unregisterFromContent({
+          userId,
+          contentType,
+          contentId: item.id!,
+        });
+        setIsRegistered(false);
+        setConfirmationMessage("Désinscription effectuée");
+
+        setTimeout(() => {
+          setConfirmationMessage("");
+        }, 3000);
+      } catch (err) {
+        alert("Erreur lors de la désinscription.");
+        console.error(err);
+      }
+    }}
+    style={{
+      backgroundColor: "#f44336",
+      color: "white",
+      padding: "10px 20px",
+      fontSize: "1rem",
+      border: "none",
+      borderRadius: "8px",
+      cursor: "pointer",
+      margin: "2rem auto",
+      display: "block",
+    }}
+  >
+    Se désinscrire
+  </button>
+) : (
+  <button
+    onClick={async () => {
+      const contentType = item.type === "atelier" ? "workshop" : "event";
+
+      try {
+        await registerToContent({
+          userId,
+          contentType,
+          contentId: item.id!,
+        });
+        setIsRegistered(true);
+        setConfirmationMessage("Inscription confirmée");
+
+        setTimeout(() => {
+          setConfirmationMessage("");
+        }, 3000);
+      } catch (err) {
+        alert("Erreur lors de l'inscription.");
+        console.error(err);
+      }
+    }}
+    style={{
+      backgroundColor: "#4CAF50",
+      color: "white",
+      padding: "10px 20px",
+      fontSize: "1rem",
+      border: "none",
+      borderRadius: "8px",
+      cursor: "pointer",
+      margin: "2rem auto",
+      display: "block",
+    }}
+  >
+    S'inscrire
+  </button>
+)}
       </div>
       )}
     </div>

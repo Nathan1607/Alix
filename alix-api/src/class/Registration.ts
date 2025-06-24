@@ -1,5 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from './User';
+import { Event } from './Event';
+import { Workshop } from './Workshop';
 
 @Entity('registrations')
 export class Registration {
@@ -10,11 +12,13 @@ export class Registration {
   @JoinColumn({ name: 'user_id' })
   user!: User;
 
-  @Column({ default: 'evenement' })
-  content_type!: string;
+  @ManyToOne(() => Event, { nullable: true })
+  @JoinColumn({ name: 'event_id' })
+  event?: Event;
 
-  @Column()
-  content_id!: number;
+  @ManyToOne(() => Workshop, { nullable: true })
+  @JoinColumn({ name: 'workshop_id' })
+  workshop?: Workshop;
 
   @Column()
   registered_at!: Date;

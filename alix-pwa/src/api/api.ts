@@ -31,37 +31,84 @@ export const registerToContent = async ({
   contentId,
 }: {
   userId: number;
-  contentType: "event" | "workshop";
+  contentType: string;
   contentId: number;
 }) => {
-  const body: any = {
-    user_id: userId,
-    content_type: contentType,
-    content_id: contentId,
-    registered_at: new Date().toISOString(),
+  const payload = {
+    userId,
+    contentType,
+    contentId,
   };
 
-  if (contentType === "event") {
-    body.event_id = contentId;
-  } else if (contentType === "workshop") {
-    body.workshop_id = contentId;
-  }
+  console.log("Payload envoyé :", payload);
 
-  const res = await fetch(`${API_BASE_URL}/registrations`, {
+  const response = await fetch(`${API_BASE_URL}/registrations`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(payload),
   });
 
-  if (!res.ok) {
-    const errorText = await res.text();
-    console.error("Erreur d'inscription :", errorText);
+  const responseText = await response.text(); // Lire le texte brut même si pas JSON
+
+  console.log("Code réponse :", response.status);
+  console.log("Texte de réponse :", responseText);
+
+  if (!response.ok) {
+    let errorData;
+    try {
+      errorData = JSON.parse(responseText);
+    } catch (err) {
+      errorData = { message: responseText };
+    }
+    console.error("Erreur d'inscription :", errorData);
     throw new Error("Échec de l'inscription");
   }
 
-  return await res.json();
+  try {
+    return JSON.parse(responseText);
+  } catch (err) {
+    console.warn("Réponse non JSON :", responseText);
+    return responseText;
+  }
 };
 
 
+export async function checkRegistration(userId: number, contentType: 'event' | 'workshop', contentId: number) {
+  const paramName = contentType === 'event' ? 'eventId' : 'workshopId';
+  const response = await fetch(`${API_BASE_URL}/registrations/check?userId=${userId}&${paramName}=${contentId}`);
+
+  const text = await response.text();
+  console.log('Réponse brute :', text);
+
+  if (!response.ok) {
+    throw new Error(`Erreur lors de la vérification de l'inscription : ${text}`);
+  }
+
+  return JSON.parse(text);
+}
+
+
+export const unregisterFromContent = async ({
+  userId,
+  contentType,
+  contentId,
+}: {
+  userId: number;
+  contentType: "event" | "workshop";
+  contentId: number;
+}) => {
+  const res = await fetch(
+    `${API_BASE_URL}/registrations/by-data?userId=${userId}&contentType=${contentType}&contentId=${contentId}`,
+    { method: "DELETE" }
+  );
+
+  if (!res.ok && res.status !== 204) {
+    const errorText = await res.text();
+    console.error("Erreur de désinscription :", errorText);
+    throw new Error("Échec de la désinscription");
+  }
+
+  return true;
+};
