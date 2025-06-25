@@ -31,46 +31,32 @@ export const registerToContent = async ({
   contentId,
 }: {
   userId: number;
-  contentType: string;
+  contentType: 'event' | 'workshop';
   contentId: number;
 }) => {
-  const payload = {
-    userId,
-    contentType,
-    contentId,
-  };
-
-  console.log("Payload envoyé :", payload);
-
-  const response = await fetch(`${API_BASE_URL}/registrations`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-
-  const responseText = await response.text(); // Lire le texte brut même si pas JSON
-
-  console.log("Code réponse :", response.status);
-  console.log("Texte de réponse :", responseText);
-
-  if (!response.ok) {
-    let errorData;
-    try {
-      errorData = JSON.parse(responseText);
-    } catch (err) {
-      errorData = { message: responseText };
-    }
-    console.error("Erreur d'inscription :", errorData);
-    throw new Error("Échec de l'inscription");
-  }
-
   try {
-    return JSON.parse(responseText);
-  } catch (err) {
-    console.warn("Réponse non JSON :", responseText);
-    return responseText;
+    const payload = {
+      user_id: userId,
+      event_id: contentType === 'event' ? contentId : undefined,
+      workshop_id: contentType === 'workshop' ? contentId : undefined,
+      registered_at: new Date().toISOString(),
+    };
+
+    console.log('📦 Payload envoyé :', payload);
+
+    const response = await fetch(`${API_BASE_URL}/registrations`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error: any) {
+    console.error('Erreur d\'inscription :', error.response?.data || error.message);
+    throw new Error('Échec de l\'inscription');
   }
 };
 
@@ -99,10 +85,13 @@ export const unregisterFromContent = async ({
   contentType: "event" | "workshop";
   contentId: number;
 }) => {
-  const res = await fetch(
-    `${API_BASE_URL}/registrations/by-data?userId=${userId}&contentType=${contentType}&contentId=${contentId}`,
-    { method: "DELETE" }
-  );
+  const paramName = contentType === "event" ? "eventId" : "workshopId";
+
+  const url = `${API_BASE_URL}/registrations?userId=${userId}&${paramName}=${contentId}`;
+
+  const res = await fetch(url, {
+    method: "DELETE",
+  });
 
   if (!res.ok && res.status !== 204) {
     const errorText = await res.text();

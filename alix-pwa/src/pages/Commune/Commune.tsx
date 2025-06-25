@@ -147,6 +147,7 @@ const Commune = () => {
         showBack
         showLogo
         showSettings
+        onBackClick={() => navigate(-1)}
       />
       <div
         style={{

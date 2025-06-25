@@ -18,13 +18,14 @@ const YellowBar: React.FC<YellowBarProps> = ({
   showBack = false,
   showLogo = false,
   showSettings = false,
+  onBackClick = () => Promise.resolve(),
 }) => {
 
   return (
     <div className="yellow-bar">
       <div className="left-section">
         {showBack && (
-          <button className="back-button">
+          <button className="back-button" onClick={onBackClick}>
             <ArrowLeftIcon className="icon" />
             <span>{backtitle}</span>
           </button>
