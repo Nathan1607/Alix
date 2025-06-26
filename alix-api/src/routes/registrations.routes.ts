@@ -47,21 +47,6 @@ router.get('/check', async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // const query = registrationRepository
-    //   .createQueryBuilder('registration')
-    //   .leftJoin('registration.user', 'user')
-    //   .leftJoin('registration.event', 'event')
-    //   .leftJoin('registration.workshop', 'workshop')
-    //   .where('user.id = :userId', { userId: Number(userId) });
-
-    // if (eventId) {
-    //   query.andWhere('event.id = :eventId', { eventId: Number(eventId) });
-    // } else if (workshopId) {
-    //   query.andWhere('workshop.id = :workshopId', { workshopId: Number(workshopId) });
-    // }
-
-    console.log('🧪 Params', { userId, eventId, workshopId });
-
     const existing = await registrationRepository.findOne({
       where: {
          user: { id: Number(userId) },
@@ -71,9 +56,7 @@ router.get('/check', async (req: Request, res: Response): Promise<void> => {
     });
 
     res.json({ isRegistered: !!existing });
-  } catch (error) {
-    console.error("❌ Vérification inscription échouée:", error);
-  
+  } catch (error) {  
     const e = error as Error;
   
     res.status(500).json({

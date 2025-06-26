@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { User } from "./../class/User";
-import { Commune } from "./../class/Commune";
+import { Commune } from "../class/Commune";
 import { Article } from "./../class/Article";
 import { Event } from "./../class/Event";
 import { Workshop } from "./../class/Workshop";

@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+
 import { AppDataSource } from "./src/config/data-source"; 
 import userRoutes from "./src/routes/users.routes";
 import { setupSwagger } from "./src/config/swagger";
@@ -11,10 +12,7 @@ import eventsRoutes from "./src/routes/events.routes";
 import registrationsRoutes from "./src/routes/registrations.routes";
 import workshopsRoutes from "./src/routes/workshops.routes";
 
-import testRouter from "./src/routes/test.routes";
-
-const app = express();
-const PORT = 3000;
+export const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -31,24 +29,23 @@ app.use("/events", eventsRoutes);
 app.use("/registrations", registrationsRoutes);
 app.use("/workshops", workshopsRoutes);
 
-app.use("/test", testRouter);
-
 setupSwagger(app);
 
-const startServer = async () => {
-    try {
-      await AppDataSource.initialize();
-      console.log("Connected to the database successfully!");
-  
-      app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
-      });
-    } catch (error) {
-      console.error("Error connecting to the database:", error);
-    }
-  };
-  
-  startServer();
+const PORT = 3000;
 
+export const startServer = async () => {
+  try {
+    await AppDataSource.initialize();
+    console.log("Connected to the database successfully!");
 
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error connecting to the database:", error);
+  }
+};
 
+if (require.main === module) {
+   startServer();
+ }

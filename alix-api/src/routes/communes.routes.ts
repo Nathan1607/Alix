@@ -23,10 +23,15 @@ const communeRepository = AppDataSource.getRepository(Commune);
  *               items:
  *                 $ref: '#/components/schemas/Commune'
  */
-router.get("/", async (_req: Request, res: Response) => {
-  const communes = await communeRepository.find();
-  res.json(communes);
+router.get('/', async (req, res) => {
+  try {
+    const communes = await communeRepository.find();
+    res.json(communes);
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur lors de la récupération des communes' });
+  }
 });
+
 
 // GET commune by id
 /**
@@ -59,12 +64,12 @@ router.get('/:id', async (req: Request, res: Response): Promise<void> => {
         where: { id: req.params.id },
       });
       if (!commune) {
-        res.status(404).json({ message: 'Commune non trouvé' });
+        res.status(404).json({ message: 'Commune non trouvée' });
         return;
       }
       res.json(commune);
     } catch (error) {
-      res.status(500).json({ message: 'Erreur lors de la récupération de l’utilisateur' });
+      res.status(500).json({ message: 'Erreur lors de la récupération de la commune' });
     }
   });
 
@@ -141,7 +146,7 @@ router.put('/:id', async (req: Request, res: Response): Promise<void> => {
     try {
       const commune = await communeRepository.findOneBy({ id: req.params.id });
       if (!commune) {
-        res.status(404).json({ message: 'Commune non trouvé' });
+        res.status(404).json({ message: 'Commune non trouvée' });
         return;
       }
       communeRepository.merge(commune, req.body);
@@ -177,7 +182,7 @@ router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
     try {
       const result = await communeRepository.delete(Number(req.params.id));
       if (result.affected === 0) {
-        res.status(404).json({ message: 'Commune non trouvé' });
+        res.status(404).json({ message: 'Commune non trouvée' });
         return;
       }
       res.status(204).send();
