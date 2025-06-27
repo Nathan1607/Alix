@@ -27,6 +27,7 @@ const ButtonHome: React.FC<ButtonHomeProps> = ({ icon, text, backgroundColor, on
         cursor: 'pointer',
         margin: '2rem',
       }}
+      data-testid={`button-home-${text.toLowerCase().replace(/\s/g, '-')}`}
     >
       <div style={{ fontSize: '5rem', marginBottom: '.5rem' }}>{icon}</div>
       <span>{text}</span>

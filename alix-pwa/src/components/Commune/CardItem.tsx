@@ -75,6 +75,7 @@ const CardItem: React.FC<CardItemProps> = ({
         <div style={{ display: 'flex', alignItems: 'flex-end' }}>
           <button
             onClick={onButtonClick}
+            data-testid={['data-testid']}
             style={{
               backgroundColor: '#004BA0',
               color: '#fff',

@@ -70,6 +70,7 @@ const Commune = () => {
             description={article.text_1}
             buttonLabel="Lire l’article"
             onButtonClick={() => navigate('/detail', { state: { item: { ...article, type: 'article' } } })}
+            data-testid={`article-button-${article.id}`}
             />
         ))
       );
