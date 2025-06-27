@@ -34,7 +34,6 @@ const Header = () => {
   const [weatherCode, setWeatherCode] = useState<number | null>(null);
 
   useEffect(() => {
-    // Récupération du niveau de batterie
     navigator.getBattery?.().then((battery) => {
       setBatteryLevel(Math.round(battery.level * 100));
       battery.addEventListener("levelchange", () =>
@@ -44,7 +43,6 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    // Mettre à jour la date et l'heure toutes les secondes
     const interval = setInterval(() => {
       const now = new Date();
       setDateTime(
@@ -65,7 +63,6 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    // Demande de localisation
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
@@ -103,20 +100,23 @@ const Header = () => {
 
   const getBatteryIcon = () => {
     if (batteryLevel !== null) {
-      if (batteryLevel >= 80) return <BatteryFullIcon className="status-icon" />;
+      if (batteryLevel >= 80)
+        return <BatteryFullIcon className="status-icon" data-testid="battery-icon" />;
       if (batteryLevel >= 30 && batteryLevel < 80)
-        return <BatteryMediumIcon className="status-icon" />;
-      if (batteryLevel < 30) return <BatteryLowIcon className="status-icon" />;
+        return <BatteryMediumIcon className="status-icon" data-testid="battery-icon" />;
+      if (batteryLevel < 30)
+        return <BatteryLowIcon className="status-icon" data-testid="battery-icon" />;
     }
-    return <BatteryIcon className="status-icon" />;
+    return <BatteryIcon className="status-icon" data-testid="battery-icon" />;
   };
 
   const getWeatherIcon = () => {
     if (weatherCode === null) return null;
-    if (weatherCode < 3) return <SunIcon className="status-icon" />;
-    if (weatherCode < 50) return <CloudIcon className="status-icon" />;
-    if (weatherCode < 80) return <CloudRainIcon className="status-icon" />;
-    return <WindIcon className="status-icon" />;
+    if (weatherCode < 3) return <SunIcon className="status-icon" data-testid="weather-icon" />;
+    if (weatherCode < 50) return <CloudIcon className="status-icon" data-testid="weather-icon" />;
+    if (weatherCode < 80)
+      return <CloudRainIcon className="status-icon" data-testid="weather-icon" />;
+    return <WindIcon className="status-icon" data-testid="weather-icon" />;
   };
 
   return (
@@ -125,9 +125,9 @@ const Header = () => {
         <div className="status-item">
           <span>{temperature !== null ? `${temperature}°C` : "N/A"}</span>
           {getWeatherIcon()}
-          </div>
+        </div>
         <div className="status-item">
-          <span>{dateTime}</span>
+          <span data-testid="datetime">{dateTime}</span>
         </div>
       </div>
 
@@ -138,9 +138,9 @@ const Header = () => {
         </div>
         <div className="status-item wifi">
           {wifiStatus ? (
-            <WifiHigh className="status-icon" />
+            <WifiHigh className="status-icon" data-testid="wifi-icon" />
           ) : (
-            <WifiOffIcon className="status-icon" />
+            <WifiOffIcon className="status-icon" data-testid="wifi-icon" />
           )}
         </div>
         <div className="status-item">{getBatteryIcon()}</div>

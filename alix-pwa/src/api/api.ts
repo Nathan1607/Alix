@@ -2,7 +2,7 @@ import { Articles } from '../types/articles';
 import { Workshops } from '../types/workshop';
 import { Events } from '../types/events';
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://localhost:3010';
 
 export const getArticles = async (communeId: number): Promise<Articles[]> => {
   const res = await fetch(`${API_BASE_URL}/articles?communeId=${communeId}`);

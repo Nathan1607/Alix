@@ -31,7 +31,7 @@ app.use("/workshops", workshopsRoutes);
 
 setupSwagger(app);
 
-const PORT = 3000;
+const PORT = 3010;
 
 export const startServer = async () => {
   try {
